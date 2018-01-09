@@ -7,6 +7,7 @@ import os
 import sys
 import termios
 import json
+import yaml
 
 from gossi import Logger, Msg
 
@@ -44,6 +45,7 @@ def follow_directive(tag, root, build_directive):
             return
 
     for cmd in build_directive['run']:
+        os.makedirs(os.path.dirname(build_directive['log_dir']), exist_ok=True)
         with open(os.path.join('.', build_directive['log_file']), 'w+') as logfile:
             work_dir = '.' if 'path' not in build_directive.keys() else os.path.join(root, build_directive['path'])
             process = Popen(cmd['cmd'].format(**build_opts).split(), stderr=STDOUT, stdout=logfile, cwd=work_dir)
@@ -72,9 +74,6 @@ def build(config):
     build_groups = config['groups']
     directives = config['directives']
 
-    # Create files
-    os.makedirs(config['log_dir'], exist_ok=True)
-
     # Run build groups in order
     for build_group in build_groups:
 
@@ -98,6 +97,14 @@ enable_echo(False)
 
 # Run when main
 if __name__ == '__main__':
-    with open(os.path.join(os.getcwd(), 'build_config.json')) as cfg:
-        args = json.loads(cfg.read())
+    args = {}
+    if (os.path.exists('pmake.json')):
+        with open(os.path.join(os.getcwd(), 'pmake.json')) as cfg:
+            args = json.load(cfg.read())
+    elif (os.path.exists('pmake.yml')):
+        with open(os.path.join(os.getcwd(), 'pmake.yml')) as cfg:
+            args = yaml.load(cfg.read())
+    else:
+        print('PMake config not found in local directory')
+        sys.exit(1)
     build(args)
