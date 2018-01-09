@@ -45,7 +45,7 @@ def follow_directive(tag, root, build_directive):
             return
 
     for cmd in build_directive['run']:
-        os.makedirs(os.path.dirname(build_directive['log_dir']), exist_ok=True)
+        os.makedirs(os.path.dirname(build_directive['log_file']), exist_ok=True)
         with open(os.path.join('.', build_directive['log_file']), 'w+') as logfile:
             work_dir = '.' if 'path' not in build_directive.keys() else os.path.join(root, build_directive['path'])
             process = Popen(cmd['cmd'].format(**build_opts).split(), stderr=STDOUT, stdout=logfile, cwd=work_dir)
@@ -97,13 +97,16 @@ enable_echo(False)
 
 # Run when main
 if __name__ == '__main__':
+    assert sys.version_info >= (3, 2), 'PMake requires Python > 3.2'
     args = {}
     if (os.path.exists('pmake.json')):
         with open(os.path.join(os.getcwd(), 'pmake.json')) as cfg:
             args = json.load(cfg.read())
+            print('Loaded from JSON config file')
     elif (os.path.exists('pmake.yml')):
         with open(os.path.join(os.getcwd(), 'pmake.yml')) as cfg:
             args = yaml.load(cfg.read())
+            print('Loaded from YAML config file')
     else:
         print('PMake config not found in local directory')
         sys.exit(1)
