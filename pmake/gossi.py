@@ -101,7 +101,7 @@ class Logger(object):
 
 
     def __init__(self, prefix_fmt='{prefix:<16}| '):
-        super(Logger).__init__()
+        super(Logger, self).__init__()
         self._log_line = 0
         self._tags = {}
         self._next_color = 0
