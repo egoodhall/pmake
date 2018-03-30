@@ -47,10 +47,11 @@ def follow_task(tag, root, build_task):
                 return
 
     for cmd in build_task['run']:
+        log_path = os.path.dirname(build_task['log_file'])
         try: 
-            os.makedirs(os.path.dirname(build_task['log_file']))
+            os.makedirs(log_path)
         except OSError:
-            if not os.path.isdir(path):
+            if not os.path.isdir(log_path):
                 raise
         with open(os.path.join('.', build_task['log_file']), 'w+') as logfile:
             work_dir = '.' if 'path' not in build_task.keys() else os.path.join(root, build_task['path'])
