@@ -11,4 +11,5 @@ setup(
   download_url = 'https://github.com/emm035/pmake/archive/1.0.tar.gz', # I'll explain this in a second
   keywords = ['testing', 'logging', 'example'], # arbitrary keywords
   classifiers = [],
+  scripts = ['pmake/pmake']
 )
