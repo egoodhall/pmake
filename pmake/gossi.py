@@ -72,7 +72,7 @@ class Tag(object):
 
 
     def __init__(self, tag_id, tag_line, color):
-        super(Tag).__init__()
+        super(Tag, self).__init__()
         self._lock = RLock()
         self._id = tag_id
         self._line = tag_line
