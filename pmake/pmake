@@ -99,7 +99,6 @@ enable_echo(False)
 
 # Run when main
 if __name__ == '__main__':
-    assert sys.version_info >= (3, 2), 'PMake requires Python > 3.2'
     args = {}
     if len(sys.argv) == 1:
         if (os.path.exists('pmake.json')):
