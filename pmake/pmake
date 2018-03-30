@@ -10,7 +10,7 @@ import json
 import yaml
 import textwrap
 
-from gossi import Logger, Msg
+from pmake.gossi import Logger, Msg
 
 
 LOGGER = Logger()

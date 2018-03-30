@@ -3,3 +3,4 @@ setup.cfg
 setup.py
 pmake/__init__.py
 pmake/gossi.py
+pmake/pmake
