@@ -43,7 +43,7 @@ def follow_task(tag, root, build_task):
                     build_opts[req] = opt
                     break
             if req not in build_opts.keys():
-                LOGGER.log(Msg(tag, 'Failed - {err_msg}'.format(**build_task['require']['req']), msg_color='red'), tag_id=tag)
+                LOGGER.log(Msg(tag, 'Failed - {err_msg}'.format(**build_task['require'][req]), msg_color='red'), tag_id=tag)
                 return
 
     for cmd in build_task['run']:
